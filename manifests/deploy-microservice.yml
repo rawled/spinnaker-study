@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: delwar_solo_microservice
+        app: delwar-solo-microservice
         stack: frontend
         source: demo
-    name: delwar_solo_microservice
+    name: delwar-solo-microservice
     namespace: microservices
 spec:
     replicas: 3
     selector:
         matchLabels:
-            run: delwar_solo_microservice
+            run: delwar-solo-microservice
     template:
         metadata:
             labels:
-                app: delwar_solo_microservice
-                run: delwar_solo_microservice
+                app: delwar-solo-microservice
+                run: delwar-solo-microservice
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/delwar_solo_microservice
-                    name: delwar_solo_microservice
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/delwar-solo-microservice
+                    name: delwar-solo-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,13 +31,13 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: delwar_solo_microservice-service
-    name: delwar_solo_microservice-service
+        app: delwar-solo-microservice-service
+    name: delwar-solo-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: delwar_solo_microservice
+        app: delwar-solo-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -51,7 +51,7 @@ kind: Ingress
 metadata:
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: delwar_solo-ingress
+    name: delwar-solo-ingress
     namespace: microservices
 spec:
     rules:
@@ -59,7 +59,7 @@ spec:
                 paths:
                     -   path: /delwar_solo(/|$)(.*)
                         backend:
-                            serviceName: delwar_solo_microservice-service
+                            serviceName: delwar-solo-microservice-service
                             servicePort: 30201
 
 
